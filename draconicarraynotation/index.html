@@ -1,11 +1,13 @@
 <title>Draconic Array Notation</title>
 <h1>Draconic Array Notation</h1>
-<button>WIP</button>
+<button id="dragonSlayer">WIP</button>
 <script>
   class Dragon {
     constructor(mutation, horns, heads, type) {
       if (mutation.isDragon()) {
         this.mutation = mutation;
+      } else if (mutation.isMyriad()) {
+        this.mutation = D(null, 0, )
       } else {
         this.mutation = null;
       }
@@ -98,5 +100,58 @@
 
   function M(rnk, opt, opd) {
     return new Myriad(rnk, opt, opd);
+  }
+
+  function slayDragon(a, dragon, b) {
+    let dragonOutput = "";
+    
+    let dragonSlain;
+    if (dragon.isInteger()) {
+      dragonSlain = D(null, dragon, [], null);
+    } else if (dragon.isArray()) {
+      let dragonStorage = [];
+        for (let i = 0; i < dragon[i].length; i++) {
+          if (dragon[i].isInteger()) {
+            if (i = 0) {
+              dragonStorage.push(D(null, dragon[i], [], null));
+            } else {
+              dragonStorage.push(D(0, dragon[i], [], null));
+            }
+          } else if (dragon[i].isArray()) {
+            if (i = 0) {
+              dragonStorage.push(D(null, 0, [...dragon[i]], null)); 
+            } else {
+              dragonStorage.push(D(0, 0, [...dragon[i], null));
+            }
+          } else if (dragon[i].isDragon() || dragon[i].isMyriad()) {
+            dragonStorage.push(dragon[i]);
+          }
+        }
+        dragonSlain = [...dragonStorage];
+    } else if (dragon.isMyriad()) {
+      dragonSlain = [null, 0, [dragon], null];
+    } else if (dragon.isDragon()) {
+      dragonSlain = dragon;
+    } else {
+      dragonSlain = D(null, 0, [], null);
+    }
+    
+    if (a == 1) {
+      return String(1);
+    } else if (b == 1) {
+      return String(a);
+    } else if (dragonSlain.mutation == null && dragonSlain.horns == 0 && dragonSlain.heads == [] && dragonSlain.type == "") {
+      return a + "^" + b;
+    } else {
+      for (let i = 0; i = b; i++) {
+        if (i == 0) {
+          dragonOutput = dragonOutput + a;
+        } else {
+          dragonOutput = dragonOutput + a + dragonToString(dragonSlain.evaluate(b, b, 0, []));
+        }
+      }
+    }
+
+    return dragonOutput;
   }
 </script>
