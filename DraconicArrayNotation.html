@@ -1,0 +1,100 @@
+
+<script>
+  class Dragon {
+    constructor(mutation, horns, heads, type) {
+      if (mutation.isDragon()) {
+        this.mutation = mutation;
+      } else {
+        this.mutation = null;
+      }
+      
+      if (horns.isInteger()) {
+        this.horns = horns;
+      } else {
+        this.horns = 0;
+      }
+      
+      let headsStorage = [];
+      for (let i = 0; i < heads.length; i++) {
+        if (heads[i].isInteger()) {
+          if (i = 0) {
+            headsStorage.push(D(null, heads[i], [], null));
+          } else {
+            headsStorage.push(D(0, heads[i], [], null));
+          }
+        } else if (heads[i].isArray()) {
+          if (i = 0) {
+            headsStorage.push(D(null, 0, [...heads[i]], null)); 
+          } else {
+            headsStorage.push(D(0, 0, [...heads[i], null));
+          }
+        } else if (heads[i].isDragon() || heads[i].isMyriad()) {
+          headsStorage.push(heads[i]);
+        }
+      }
+      this.heads = [...headsStorage];
+      
+      if (type = null) {
+        this.type = "";
+      } else {
+        this.type = String(type);
+      }
+      
+      this.isDragon = true;
+    }
+  }
+
+  class Myriad {
+    constructor(rank, operator, operand) {
+      if (rank.isInteger()) {
+        this.rank = [[D(null, rank, [], null)]];
+      } else if (rank.isArray()) {
+        let rankStorage = [];
+        for (let i = 0; i < rank[i].length; i++) {
+          if (rank[i].isInteger()) {
+            if (i = 0) {
+              rankStorage.push(D(null, rank[i], [], null));
+            } else {
+              rankStorage.push(D(0, rank[i], [], null));
+            }
+          } else if (rank[i].isArray()) {
+            if (i = 0) {
+              rankStorage.push(D(null, 0, [...rank[i]], null)); 
+            } else {
+              rankStorage.push(D(0, 0, [...rank[i], null));
+            }
+          } else if (rank[i].isDragon() || rank[i].isMyriad()) {
+            rankStorage.push(rank[i]);
+          }
+        }
+        this.rank = [...rankStorage];
+      } else {
+        this.rank = [[0]]
+      }
+
+      if (operator.isInteger()) {
+        this.operator = D(null, operator, [], null);
+      } else if (operator.isArray()) {
+        this.operator = D(null, 0, [...operand], null);
+      } else {
+        this.operator = operator;
+      }
+    
+      if (operand.isInteger()) {
+        this.operand = D(null, operand, [], null);
+      } else if (operand.isArray()) {
+        this.operand = D(null, 0, [...operand], null);
+      }
+      
+      this.isMyriad = true;
+    }
+  }
+
+  function D(mut, hrn, hds, typ) {
+    return new Dragon(mut, hrn, hds, typ);
+  }
+
+  function M(rnk, opt, opd) {
+    return new Myriad(rnk, opt, opd);
+  }
+</script>
