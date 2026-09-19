@@ -3,7 +3,7 @@
 <button id="dragonSlayer">WIP</button>
 <script>
   class Dragon {
-    constructor(mutation, horns, heads, type) {
+    constructor(mutation, horns, heads, type, degree) {
       if (mutation.isDragon()) {
         this.mutation = mutation;
       } else if (mutation.isMyriad()) {
@@ -22,15 +22,15 @@
       for (let i = 0; i < heads.length; i++) {
         if (heads[i].isInteger()) {
           if (i = 0) {
-            headsStorage.push(D(null, heads[i], [], null));
+            headsStorage.push(D(null, heads[i], [], null, null));
           } else {
-            headsStorage.push(D(0, heads[i], [], null));
+            headsStorage.push(D(0, heads[i], [], null, null));
           }
         } else if (heads[i].isArray()) {
           if (i = 0) {
-            headsStorage.push(D(null, 0, [...heads[i]], null)); 
+            headsStorage.push(D(null, 0, [...heads[i]], null, null)); 
           } else {
-            headsStorage.push(D(0, 0, [...heads[i], null));
+            headsStorage.push(D(0, 0, [...heads[i], null, null));
           }
         } else if (heads[i].isDragon() || heads[i].isMyriad()) {
           headsStorage.push(heads[i]);
@@ -44,28 +44,41 @@
         this.type = String(type);
       }
       
+      if (degree.isCenturion()) {
+        this.degree = mutation;
+      }
+      } else {
+        this.degree = D(null, 0, [], null, null);
+      }
+      
       this.isDragon = true;
     }
   }
 
+  class Centurion extends Dragon {
+    constructor() {
+      
+    }
+  }
+  
   class Myriad {
     constructor(rank, operator, operand) {
       if (rank.isInteger()) {
-        this.rank = [[D(null, rank, [], null)]];
+        this.rank = [[D(null, rank, [], null, null)]];
       } else if (rank.isArray()) {
         let rankStorage = [];
         for (let i = 0; i < rank[i].length; i++) {
           if (rank[i].isInteger()) {
             if (i = 0) {
-              rankStorage.push(D(null, rank[i], [], null));
+              rankStorage.push(D(null, rank[i], [], null, null));
             } else {
-              rankStorage.push(D(0, rank[i], [], null));
+              rankStorage.push(D(0, rank[i], [], null, null));
             }
           } else if (rank[i].isArray()) {
             if (i = 0) {
-              rankStorage.push(D(null, 0, [...rank[i]], null)); 
+              rankStorage.push(D(null, 0, [...rank[i]], null, null)); 
             } else {
-              rankStorage.push(D(0, 0, [...rank[i], null));
+              rankStorage.push(D(0, 0, [...rank[i], null, null));
             }
           } else if (rank[i].isDragon() || rank[i].isMyriad()) {
             rankStorage.push(rank[i]);
@@ -77,17 +90,17 @@
       }
 
       if (operator.isInteger()) {
-        this.operator = D(null, operator, [], null);
+        this.operator = D(null, operator, [], null, null);
       } else if (operator.isArray()) {
-        this.operator = D(null, 0, [...operand], null);
+        this.operator = D(null, 0, [...operand], null, null);
       } else {
         this.operator = operator;
       }
     
       if (operand.isInteger()) {
-        this.operand = D(null, operand, [], null);
+        this.operand = D(null, operand, [], null, null);
       } else if (operand.isArray()) {
-        this.operand = D(null, 0, [...operand], null);
+        this.operand = D(null, 0, [...operand], null, null);
       }
       
       this.isMyriad = true;
@@ -107,21 +120,21 @@
     
     let dragonSlain;
     if (dragon.isInteger()) {
-      dragonSlain = D(null, dragon, [], null);
+      dragonSlain = D(null, dragon, [], null, null);
     } else if (dragon.isArray()) {
       let dragonStorage = [];
         for (let i = 0; i < dragon[i].length; i++) {
           if (dragon[i].isInteger()) {
             if (i = 0) {
-              dragonStorage.push(D(null, dragon[i], [], null));
+              dragonStorage.push(D(null, dragon[i], [], null, null));
             } else {
-              dragonStorage.push(D(0, dragon[i], [], null));
+              dragonStorage.push(D(0, dragon[i], [], null, null));
             }
           } else if (dragon[i].isArray()) {
             if (i = 0) {
-              dragonStorage.push(D(null, 0, [...dragon[i]], null)); 
+              dragonStorage.push(D(null, 0, [...dragon[i]], null, null)); 
             } else {
-              dragonStorage.push(D(0, 0, [...dragon[i], null));
+              dragonStorage.push(D(0, 0, [...dragon[i], null, null));
             }
           } else if (dragon[i].isDragon() || dragon[i].isMyriad()) {
             dragonStorage.push(dragon[i]);
@@ -129,11 +142,11 @@
         }
         dragonSlain = [...dragonStorage];
     } else if (dragon.isMyriad()) {
-      dragonSlain = [null, 0, [dragon], null];
+      dragonSlain = [null, 0, [dragon], null, null];
     } else if (dragon.isDragon()) {
       dragonSlain = dragon;
     } else {
-      dragonSlain = D(null, 0, [], null);
+      dragonSlain = D(null, 0, [], null, null);
     }
     
     if (a == 1) {
