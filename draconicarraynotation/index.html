@@ -44,7 +44,7 @@
         this.type = String(type);
       }
       
-      if (degree.isCenturion()) {
+      if (degree.isDragon() || degree.isMyriad()) {
         this.degree = mutation;
       }
       } else {
@@ -52,12 +52,6 @@
       }
       
       this.isDragon = true;
-    }
-  }
-
-  class Centurion extends Dragon {
-    constructor() {
-      
     }
   }
   
