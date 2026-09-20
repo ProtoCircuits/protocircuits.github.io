@@ -6,8 +6,10 @@
     constructor(mutation, horns, heads, type, degree) {
       if (mutation.isDragon()) {
         this.mutation = mutation;
+      } else if (mutation.isInteger()) {
+        this.mutation = D(null, mutation, [], null, null);
       } else if (mutation.isMyriad()) {
-        this.mutation = D(null, 0, )
+        this.mutation = D(null, 0, [mutation], null, null);
       } else {
         this.mutation = null;
       }
@@ -101,6 +103,14 @@
     }
   }
 
+  function integerToDragon(value) {
+    return D(null, value, [], null, null);
+  }
+
+  function myriadToDragon(value) {
+    return D(null, 0, [value], null, null);
+  }
+  
   function D(mut, hrn, hds, typ) {
     return new Dragon(mut, hrn, hds, typ);
   }
@@ -108,7 +118,6 @@
   function M(rnk, opt, opd) {
     return new Myriad(rnk, opt, opd);
   }
-
   function slayDragon(a, dragon, b) {
     let dragonOutput = "";
     
