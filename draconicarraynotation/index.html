@@ -7,9 +7,9 @@
       if (mutation.isDragon()) {
         this.mutation = mutation;
       } else if (mutation.isInteger()) {
-        this.mutation = D(null, mutation, [], null, null);
+        this.mutation = integerToDragon(mutation);
       } else if (mutation.isMyriad()) {
-        this.mutation = D(null, 0, [mutation], null, null);
+        this.mutation = myriadToDragon(mutation);
       } else {
         this.mutation = null;
       }
@@ -48,7 +48,6 @@
       
       if (degree.isDragon() || degree.isMyriad()) {
         this.degree = mutation;
-      }
       } else {
         this.degree = D(null, 0, [], null, null);
       }
@@ -103,12 +102,8 @@
     }
   }
 
-  function integerToDragon(value) {
-    return D(null, value, [], null, null);
-  }
-
-  function myriadToDragon(value) {
-    return D(null, 0, [value], null, null);
+  function convertToDragon(value) {
+    // Converts to dragon
   }
   
   function D(mut, hrn, hds, typ) {
