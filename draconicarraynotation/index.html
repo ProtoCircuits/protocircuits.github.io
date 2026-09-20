@@ -4,106 +4,37 @@
 <script>
   class Dragon {
     constructor(mutation, horns, heads, type, degree) {
-      if (mutation.isDragon()) {
-        this.mutation = mutation;
-      } else if (mutation.isInteger()) {
-        this.mutation = integerToDragon(mutation);
-      } else if (mutation.isMyriad()) {
-        this.mutation = myriadToDragon(mutation);
-      } else {
-        this.mutation = null;
-      }
-      
-      if (horns.isInteger()) {
-        this.horns = horns;
-      } else {
-        this.horns = 0;
-      }
-      
-      let headsStorage = [];
-      for (let i = 0; i < heads.length; i++) {
-        if (heads[i].isInteger()) {
-          if (i = 0) {
-            headsStorage.push(D(null, heads[i], [], null, null));
-          } else {
-            headsStorage.push(D(0, heads[i], [], null, null));
-          }
-        } else if (heads[i].isArray()) {
-          if (i = 0) {
-            headsStorage.push(D(null, 0, [...heads[i]], null, null)); 
-          } else {
-            headsStorage.push(D(0, 0, [...heads[i], null, null));
-          }
-        } else if (heads[i].isDragon() || heads[i].isMyriad()) {
-          headsStorage.push(heads[i]);
-        }
-      }
-      this.heads = [...headsStorage];
-      
-      if (type = null) {
-        this.type = "";
-      } else {
-        this.type = String(type);
-      }
-      
-      if (degree.isDragon() || degree.isMyriad()) {
-        this.degree = mutation;
-      } else {
-        this.degree = D(null, 0, [], null, null);
-      }
-      
+      this.mutation = convertToDragon(mutation);
+      this.horns = horns;
+      this.heads = heads;
+      this.type = type;
+      this.degree = convertToDragon(degree);
       this.isDragon = true;
     }
   }
   
   class Myriad {
     constructor(rank, operator, operand) {
-      if (rank.isInteger()) {
-        this.rank = [[D(null, rank, [], null, null)]];
-      } else if (rank.isArray()) {
-        let rankStorage = [];
-        for (let i = 0; i < rank[i].length; i++) {
-          if (rank[i].isInteger()) {
-            if (i = 0) {
-              rankStorage.push(D(null, rank[i], [], null, null));
-            } else {
-              rankStorage.push(D(0, rank[i], [], null, null));
-            }
-          } else if (rank[i].isArray()) {
-            if (i = 0) {
-              rankStorage.push(D(null, 0, [...rank[i]], null, null)); 
-            } else {
-              rankStorage.push(D(0, 0, [...rank[i], null, null));
-            }
-          } else if (rank[i].isDragon() || rank[i].isMyriad()) {
-            rankStorage.push(rank[i]);
-          }
-        }
-        this.rank = [...rankStorage];
-      } else {
-        this.rank = [[0]]
-      }
-
-      if (operator.isInteger()) {
-        this.operator = D(null, operator, [], null, null);
-      } else if (operator.isArray()) {
-        this.operator = D(null, 0, [...operand], null, null);
-      } else {
-        this.operator = operator;
-      }
-    
-      if (operand.isInteger()) {
-        this.operand = D(null, operand, [], null, null);
-      } else if (operand.isArray()) {
-        this.operand = D(null, 0, [...operand], null, null);
-      }
-      
-      this.isMyriad = true;
+      if rank
     }
   }
 
-  function convertToDragon(value) {
-    // Converts to dragon
+  function convertToDragon(attribute) {
+    if (attribute.isDragon() || attribute.isMyriad() || attribute = null) {
+      return attribute;
+    } else if (attribute.isInteger()) {
+      return D(null, attribute, [], null, null);
+    } else if (attribute.isArray()) {
+      let attributeStorage = [];
+      for (let i = 0; i < attribute[i].length; i++) {
+        if (attribute[i] == 0) {
+          attributeStorage.push(convertToDragon(attribute[i]));
+        } else {
+          attributeStorage.push(convertToDragon(attribute[i]));
+        }
+      }
+      return D(null, 0, [...attributeStorage], null, null)
+    }
   }
   
   function D(mut, hrn, hds, typ) {
@@ -116,36 +47,7 @@
   function slayDragon(a, dragon, b) {
     let dragonOutput = "";
     
-    let dragonSlain;
-    if (dragon.isInteger()) {
-      dragonSlain = D(null, dragon, [], null, null);
-    } else if (dragon.isArray()) {
-      let dragonStorage = [];
-        for (let i = 0; i < dragon[i].length; i++) {
-          if (dragon[i].isInteger()) {
-            if (i = 0) {
-              dragonStorage.push(D(null, dragon[i], [], null, null));
-            } else {
-              dragonStorage.push(D(0, dragon[i], [], null, null));
-            }
-          } else if (dragon[i].isArray()) {
-            if (i = 0) {
-              dragonStorage.push(D(null, 0, [...dragon[i]], null, null)); 
-            } else {
-              dragonStorage.push(D(0, 0, [...dragon[i], null, null));
-            }
-          } else if (dragon[i].isDragon() || dragon[i].isMyriad()) {
-            dragonStorage.push(dragon[i]);
-          }
-        }
-        dragonSlain = [...dragonStorage];
-    } else if (dragon.isMyriad()) {
-      dragonSlain = [null, 0, [dragon], null, null];
-    } else if (dragon.isDragon()) {
-      dragonSlain = dragon;
-    } else {
-      dragonSlain = D(null, 0, [], null, null);
-    }
+    let dragonSlain = convertToDragon(dragon);
     
     if (a == 1) {
       return String(1);
